@@ -64,32 +64,34 @@ def get_environment_variables() -> dict:
         }
 
 
-def print_command_line_args(args: list[str]) -> None:
-    """Print command-line arguments (legacy function for backward compatibility)."""
-    print("Command-line arguments:")
+def print_command_line_args(args: list[str]) -> str:
+    """Return command-line arguments as a string (legacy function for backward compatibility)."""
+    lines = ["Command-line arguments:"]
     
     if len(args) == 0:
-        print("  No command-line arguments provided.")
+        lines.append("  No command-line arguments provided.")
     else:
         for i, arg in enumerate(args):
-            print(f"  [{i+1}]: {arg}")
+            lines.append(f"  [{i+1}]: {arg}")
     
-    print()
+    lines.append("")
+    return "\n".join(lines)
 
 
-def print_environment_variables(env_vars: dict[str, str]) -> None:
-    """Print environment variables (legacy function for backward compatibility)."""
-    print("Environment variables:")
+def print_environment_variables(env_vars: dict[str, str]) -> str:
+    """Return environment variables as a string (legacy function for backward compatibility)."""
+    lines = ["Environment variables:"]
     
     # Sort environment variables for consistent output
     sorted_vars = sorted(env_vars.items())
     if not sorted_vars:
-        print("  No environment variables found.")
+        lines.append("  No environment variables found.")
     else:
         for key, value in sorted_vars:
-            print(f"  {key}={value}")
+            lines.append(f"  {key}={value}")
     
-    print()
+    lines.append("")
+    return "\n".join(lines)
 
 
 def main() -> None:
@@ -101,6 +103,12 @@ def main() -> None:
     logger.info("Starting Echo App MCP Server")
     logger.info(f"Command-line arguments: {args}")
     logger.info(f"Environment variables count: {len(env_vars)}")
+    
+    # Log detailed command-line arguments and environment variables
+    args_details = print_command_line_args(args)
+    env_details = print_environment_variables(env_vars)
+    logger.info(f"Command-line arguments details:\n{args_details}")
+    logger.info(f"Environment variables details:\n{env_details}")
     
     print("Starting Echo App MCP Server...")
     print("Available tools:")

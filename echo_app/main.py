@@ -6,11 +6,14 @@ import sys
 from typing import Dict, List
 
 
+# Define module-level constant for separator width
+SEPARATOR_WIDTH = 50
+
 def print_command_line_args(args: List[str]) -> None:
     """Print command-line arguments."""
-    print("=" * 50)
+    print("=" * SEPARATOR_WIDTH)
     print("COMMAND-LINE ARGUMENTS")
-    print("=" * 50)
+    print("=" * SEPARATOR_WIDTH)
     
     if len(args) == 0:
         print("No command-line arguments provided.")

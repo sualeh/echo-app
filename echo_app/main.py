@@ -30,11 +30,11 @@ def print_environment_variables(env_vars: Dict[str, str]) -> None:
     print("ENVIRONMENT VARIABLES")
     print("=" * 50)
     
-    if not env_vars:
+    # Sort environment variables for consistent output
+    sorted_vars = sorted(env_vars.items())
+    if not sorted_vars:
         print("No environment variables found.")
     else:
-        # Sort environment variables for consistent output
-        sorted_vars = sorted(env_vars.items())
         for key, value in sorted_vars:
             print(f"  {key}={value}")
     

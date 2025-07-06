@@ -25,6 +25,8 @@ This project uses Poetry for dependency management. To install and run:
 
 ## Usage
 
+### Using Poetry
+
 Run the application using Poetry:
 
 ```bash
@@ -36,6 +38,21 @@ poetry run echo-app arg1 arg2 "argument with spaces" --flag
 
 # Run directly with Python
 python -m echo_app.main [arguments...]
+```
+
+### Using Docker
+
+The application is also available as a Docker image:
+
+```bash
+# Run without arguments
+docker run --rm sualeh/echo-app
+
+# Run with arguments
+docker run --rm sualeh/echo-app arg1 arg2 "argument with spaces" --flag
+
+# Run with environment variables
+docker run --rm -e MY_VAR=test sualeh/echo-app
 ```
 
 ## Example Output

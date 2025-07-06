@@ -1,13 +1,17 @@
 # echo-app
 
-A simple Python application managed by Poetry that prints command-line arguments and environment variables.
+# echo-app
+
+A Model Context Protocol (MCP) server built with FastMCP that provides tools for accessing command-line arguments and environment variables, along with a simple hello world tool.
 
 ## Features
 
-- Prints all command-line arguments with their indices
-- Prints all environment variables in alphabetical order
-- Clean, formatted output with clear section headers
-- Handles arguments with spaces and special characters
+- **MCP Server**: Provides tools accessible via Model Context Protocol
+- **hello_world tool**: Returns a simple "Hello, world!" message
+- **get_command_line_args tool**: Returns command-line arguments with their indices
+- **get_environment_variables tool**: Returns all environment variables in alphabetical order
+- **Clean structured output**: All tools return well-formatted JSON data
+- **Poetry managed**: Uses Poetry for dependency management and building
 
 ## Installation
 
@@ -25,57 +29,83 @@ This project uses Poetry for dependency management. To install and run:
 
 ## Usage
 
-### Using Poetry
+### Running the MCP Server
 
-Run the application using Poetry:
+Run the MCP server using Poetry:
 
 ```bash
-# Run without arguments
+# Start the MCP server
 poetry run echo-app
 
-# Run with arguments
+# Start with arguments (accessible via get_command_line_args tool)
 poetry run echo-app arg1 arg2 "argument with spaces" --flag
 
 # Run directly with Python
 python -m echo_app.main [arguments...]
 ```
 
-### Using Docker
+### Available MCP Tools
 
-The application is also available as a Docker image:
+The server provides these tools:
 
-```bash
-# Run without arguments
-docker run --rm sualeh/echo-app
+1. **hello_world**: Returns "Hello, world!" message
+2. **get_command_line_args**: Returns command-line arguments passed to the server
+3. **get_environment_variables**: Returns all environment variables
 
-# Run with arguments
-docker run --rm sualeh/echo-app arg1 arg2 "argument with spaces" --flag
+### MCP Client Usage
 
-# Run with environment variables
-docker run --rm -e MY_VAR=test sualeh/echo-app
-```
+Connect to the server using any MCP-compatible client. The server uses stdio transport by default.
+
+Example tool calls:
+- `hello_world` - No parameters needed
+- `get_command_line_args` - No parameters needed  
+- `get_environment_variables` - No parameters needed
 
 ## Example Output
 
-```
+Starting the MCP server:
+
+```bash
 $ poetry run echo-app hello world --verbose
-Echo App - Command-line Arguments and Environment Variables
+Starting Echo App MCP Server...
+Available tools:
+  - hello_world: Returns 'Hello, world!'
+  - get_command_line_args: Returns command-line arguments
+  - get_environment_variables: Returns environment variables
 
-==================================================
-COMMAND-LINE ARGUMENTS
-==================================================
-  [0]: hello
-  [1]: world
-  [2]: --verbose
+# Server will then wait for MCP client connections
+```
 
-==================================================
-ENVIRONMENT VARIABLES
-==================================================
-  HOME=/home/user
-  PATH=/usr/local/bin:/usr/bin:/bin
-  SHELL=/bin/bash
-  USER=user
-  ...
+Example MCP tool responses:
+
+**hello_world tool:**
+```json
+"Hello, world!"
+```
+
+**get_command_line_args tool:**
+```json
+{
+  "message": "Command-line arguments:",
+  "args": [
+    {"index": 1, "value": "hello"},
+    {"index": 2, "value": "world"},
+    {"index": 3, "value": "--verbose"}
+  ]
+}
+```
+
+**get_environment_variables tool:**
+```json
+{
+  "message": "Environment variables:",
+  "variables": [
+    {"name": "HOME", "value": "/home/user"},
+    {"name": "PATH", "value": "/usr/local/bin:/usr/bin:/bin"},
+    {"name": "SHELL", "value": "/bin/bash"},
+    {"name": "USER", "value": "user"}
+  ]
+}
 ```
 
 ## Docker Distribution
@@ -88,6 +118,21 @@ The image is automatically built and published to Docker Hub via GitHub Actions:
 - **Repository**: `sualeh/echo-app`
 - **Platforms**: `linux/amd64`, `linux/arm64`
 - **Tags**: `latest`, version tags (e.g., `v1.0.0`), and branch tags
+
+### Using Docker
+
+The MCP server is also available as a Docker image:
+
+```bash
+# Run MCP server without arguments
+docker run --rm sualeh/echo-app
+
+# Run MCP server with arguments  
+docker run --rm sualeh/echo-app arg1 arg2 "argument with spaces" --flag
+
+# Run with environment variables
+docker run --rm -e MY_VAR=test sualeh/echo-app
+```
 
 ### Building Locally
 

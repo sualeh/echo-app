@@ -1,13 +1,14 @@
 [project]
 name = "echo-app"
 version = "0.1.0"
-description = "Simple echo app that prints command-line arguments and environment variables"
+description = "MCP server that provides tools for command-line arguments and environment variables"
 authors = [
     {name = "copilot-swe-agent[bot]",email = "198982749+Copilot@users.noreply.github.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "fastmcp>=0.1.0",
 ]
 
 [project.scripts]

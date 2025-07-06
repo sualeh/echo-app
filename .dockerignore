@@ -45,7 +45,6 @@ env/
 Thumbs.db
 
 # Docker
-Dockerfile
 .dockerignore
 
 # GitHub

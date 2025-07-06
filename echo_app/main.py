@@ -3,37 +3,29 @@
 
 import os
 import sys
-from typing import Dict, List
 
 
-# Define module-level constant for separator width
-SEPARATOR_WIDTH = 50
-
-def print_command_line_args(args: List[str]) -> None:
+def print_command_line_args(args: list[str]) -> None:
     """Print command-line arguments."""
-    print("=" * SEPARATOR_WIDTH)
-    print("COMMAND-LINE ARGUMENTS")
-    print("=" * SEPARATOR_WIDTH)
+    print("Command-line arguments":)
     
     if len(args) == 0:
-        print("No command-line arguments provided.")
+        print("  No command-line arguments provided.")
     else:
         for i, arg in enumerate(args):
-            print(f"  [{i}]: {arg}")
+            print(f"  [{i+1}]: {arg}")
     
     print()
 
 
-def print_environment_variables(env_vars: Dict[str, str]) -> None:
+def print_environment_variables(env_vars: dict[str, str]) -> None:
     """Print environment variables."""
-    print("=" * 50)
-    print("ENVIRONMENT VARIABLES")
-    print("=" * 50)
+    print("Environment variables:")
     
     # Sort environment variables for consistent output
     sorted_vars = sorted(env_vars.items())
     if not sorted_vars:
-        print("No environment variables found.")
+        print("  No environment variables found.")
     else:
         for key, value in sorted_vars:
             print(f"  {key}={value}")

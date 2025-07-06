@@ -7,7 +7,7 @@ import sys
 
 def print_command_line_args(args: list[str]) -> None:
     """Print command-line arguments."""
-    print("Command-line arguments":)
+    print("Command-line arguments:")
     
     if len(args) == 0:
         print("  No command-line arguments provided.")

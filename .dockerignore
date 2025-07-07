@@ -57,4 +57,4 @@ test_*.py
 
 # Documentation
 docs/
-*.md
+# *.md  # Commented out to allow README.md for Docker build

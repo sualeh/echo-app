@@ -30,14 +30,11 @@ def hello_world() -> str:
 def get_command_line_args() -> dict:
     """Get command-line arguments that were passed to the server."""
     args = sys.argv[1:]  # Exclude the script name
-
-    # Log the command-line arguments
     logger.info("Command-line arguments requested: %s", args)
-
     if len(args) == 0:
         return []
-    else:
-        return [{"index": i+1, "value": arg} for i, arg in enumerate(args)]
+
+    return [{"index": i+1, "value": arg} for i, arg in enumerate(args)]
 
 
 @app.tool()
@@ -50,14 +47,13 @@ def get_environment_variables() -> dict:
     }
     sorted_vars = sorted(filtered_vars.items())
 
-    # Log environment variables count (avoid logging sensitive values)
     logger.info("ECHO_ environment variables: %d variables",
                 len(filtered_vars))
 
     if not sorted_vars:
         return []
-    else:
-        return [{"name": key, "value": value} for key, value in sorted_vars]
+
+    return [{"name": key, "value": value} for key, value in sorted_vars]
 
 
 def main() -> None:

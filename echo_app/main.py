@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Main module for echo-app MCP server that provides tools for command-line arguments and environment variables."""
+"""
+Main module for echo-app MCP server that provides tools for
+   command-line arguments and environment variables.
+"""
 
 import logging
 import os

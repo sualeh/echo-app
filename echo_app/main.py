@@ -30,7 +30,9 @@ def hello_world() -> str:
 def get_command_line_args() -> dict:
     """Get command-line arguments that were passed to the server."""
     args = sys.argv[1:]  # Exclude the script name
+
     logger.info("Command-line arguments requested: %s", args)
+
     if len(args) == 0:
         return []
 

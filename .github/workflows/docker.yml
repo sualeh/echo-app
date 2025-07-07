@@ -28,10 +28,24 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
     - name: Check Python code compilation
       run: |
         find echo_app -name "*.py" -exec python -m py_compile {} \;
         echo "Python code compilation check passed"
+
+    - name: Build application with Poetry
+      run: |
+        poetry build
+        echo "Poetry build completed successfully"
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3

@@ -7,7 +7,7 @@ import sys
 import fastmcp
 
 # Create the MCP server
-app = fastmcp.FastMCP("Echo App MCP Server")
+app = fastmcp.FastMCP("Echo App MCP Server", banner=False)
 
 # Set up logging
 logging.basicConfig(

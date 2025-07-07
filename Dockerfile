@@ -11,7 +11,6 @@ ENV PYTHONUNBUFFERED=1 \
 # Install system dependencies needed for building
 RUN apt-get update && apt-get install -y \
     build-essential \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry

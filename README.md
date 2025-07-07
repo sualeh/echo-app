@@ -9,7 +9,7 @@ A Model Context Protocol (MCP) server built with FastMCP that provides tools for
 - **MCP Server**: Provides tools accessible via Model Context Protocol
 - **hello_world tool**: Returns a simple "Hello, world!" message
 - **get_command_line_args tool**: Returns command-line arguments with their indices
-- **get_environment_variables tool**: Returns all environment variables in alphabetical order
+- **get_environment_variables tool**: Returns environment variables with ECHO_ prefix in alphabetical order
 - **Clean structured output**: All tools return well-formatted JSON data
 - **Poetry managed**: Uses Poetry for dependency management and building
 
@@ -50,7 +50,7 @@ The server provides these tools:
 
 1. **hello_world**: Returns "Hello, world!" message
 2. **get_command_line_args**: Returns command-line arguments passed to the server
-3. **get_environment_variables**: Returns all environment variables
+3. **get_environment_variables**: Returns environment variables with ECHO_ prefix
 
 ### MCP Client Usage
 
@@ -71,7 +71,7 @@ Starting Echo App MCP Server...
 Available tools:
   - hello_world: Returns 'Hello, world!'
   - get_command_line_args: Returns command-line arguments
-  - get_environment_variables: Returns environment variables
+  - get_environment_variables: Returns ECHO_ environment variables
 
 # Server will then wait for MCP client connections
 ```
@@ -98,12 +98,11 @@ Example MCP tool responses:
 **get_environment_variables tool:**
 ```json
 {
-  "message": "Environment variables:",
+  "message": "ECHO_ environment variables:",
   "variables": [
-    {"name": "HOME", "value": "/home/user"},
-    {"name": "PATH", "value": "/usr/local/bin:/usr/bin:/bin"},
-    {"name": "SHELL", "value": "/bin/bash"},
-    {"name": "USER", "value": "user"}
+    {"name": "ECHO_HOME", "value": "/home/user"},
+    {"name": "ECHO_DEBUG", "value": "true"},
+    {"name": "ECHO_VERSION", "value": "1.0.0"}
   ]
 }
 ```

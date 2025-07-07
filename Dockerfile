@@ -13,6 +13,13 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Poetry
+RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org poetry
+
+# Configure Poetry to not create virtual environment (we'll create our own)
+ENV POETRY_VENV_IN_PROJECT=false \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
+
 # Create and activate virtual environment
 RUN python -m venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
@@ -20,13 +27,15 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Set working directory
 WORKDIR /app
 
-# Copy the built wheel and requirements
-COPY dist/ ./dist/
+# Copy project files for building
 COPY pyproject.toml ./
+COPY README.md ./
+COPY echo_app/ ./echo_app/
 
-# Install dependencies first (fastmcp) and then the application
-RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org fastmcp>=0.1.0
-RUN pip install dist/*.whl
+# Install dependencies and build the project using Poetry
+RUN pip install fastmcp>=0.1.0 \
+    && poetry build \
+    && pip install dist/*.whl
 
 # Stage 2: Runtime - Create the final lightweight image
 FROM python:3.12-slim AS runtime

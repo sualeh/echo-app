@@ -33,9 +33,9 @@ COPY README.md ./
 COPY echo_app/ ./echo_app/
 
 # Install dependencies and build the project using Poetry
-RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org fastmcp>=0.1.0 \
+RUN pip install fastmcp>=0.1.0 \
     && poetry build \
-    && pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org dist/*.whl
+    && pip install dist/*.whl
 
 # Stage 2: Runtime - Create the final lightweight image
 FROM python:3.12-slim AS runtime

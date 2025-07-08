@@ -18,7 +18,7 @@ def get_command_line_args() -> list:
     args = sys.argv[1:]  # Exclude the script name
 
     if len(args) == 0:
-        return []
+        return [None]
 
     return [{"index": i+1, "value": arg} for i, arg in enumerate(args)]
 
@@ -34,7 +34,7 @@ def get_environment_variables() -> list:
     sorted_vars = sorted(filtered_vars.items())
 
     if not sorted_vars:
-        return []
+        return [None]
 
     return [{"name": key, "value": value} for key, value in sorted_vars]
 

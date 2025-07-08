@@ -25,7 +25,7 @@ def get_command_line_args() -> list | str:
 
 @echo_app.tool()
 def get_environment_variables() -> list | str:
-    """Get environment variables with ECHO_ prefix."""
+    """Get environment variables with 'ECHO_' prefix."""
     env_vars = dict(os.environ)
     # Filter to only include variables with ECHO_ prefix
     filtered_vars = {
@@ -40,7 +40,7 @@ def get_environment_variables() -> list | str:
 
 
 def main() -> None:
-    """Main entry point that runs the MCP server."""
+    """Main entry point that runs the Echo App MCP server."""
     echo_app.run()
 
 

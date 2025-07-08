@@ -13,18 +13,18 @@ echo_app = fastmcp.FastMCP("Echo App MCP Server")
 
 
 @echo_app.tool()
-def get_command_line_args() -> list:
+def get_command_line_args() -> list | str:
     """Get command-line arguments that were passed to the server."""
     args = sys.argv[1:]  # Exclude the script name
 
     if len(args) == 0:
-        return [None]
+        return "No results found"
 
     return [{"index": i+1, "value": arg} for i, arg in enumerate(args)]
 
 
 @echo_app.tool()
-def get_environment_variables() -> list:
+def get_environment_variables() -> list | str:
     """Get environment variables with ECHO_ prefix."""
     env_vars = dict(os.environ)
     # Filter to only include variables with ECHO_ prefix
@@ -34,7 +34,7 @@ def get_environment_variables() -> list:
     sorted_vars = sorted(filtered_vars.items())
 
     if not sorted_vars:
-        return [None]
+        return "No results found"
 
     return [{"name": key, "value": value} for key, value in sorted_vars]
 

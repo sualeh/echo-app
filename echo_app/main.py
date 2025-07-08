@@ -31,7 +31,7 @@ def get_command_line_args() -> dict:
     """Get command-line arguments that were passed to the server."""
     args = sys.argv[1:]  # Exclude the script name
 
-    logger.info("Command-line arguments requested: %s", args)
+    logger.debug("Command-line arguments requested: %s", args)
 
     if len(args) == 0:
         return []
@@ -49,8 +49,7 @@ def get_environment_variables() -> dict:
     }
     sorted_vars = sorted(filtered_vars.items())
 
-    logger.info("ECHO_ environment variables: %d variables",
-                len(filtered_vars))
+    logger.debug("Environment variables: %d variables", len(filtered_vars))
 
     if not sorted_vars:
         return []
@@ -62,26 +61,6 @@ def main() -> None:
     """Main entry point that runs the MCP server."""
 
     logger.info("Starting Echo App MCP Server")
-
-    # Log command-line arguments
-    logger.info("Command-line arguments:")
-    args = get_command_line_args()
-    if args:
-        for arg in args:
-            logger.info("  %d: %s", arg['index'], arg['value'])
-    else:
-        logger.info("  <none>")
-
-    # Log environment variables
-    logger.info("Environment variables:")
-    env_vars = get_environment_variables()
-    if env_vars:
-        for var in env_vars:
-            logger.info("  %s=%s", var['name'], var['value'])
-    else:
-        logger.info("  <none>")
-
-    print("Starting Echo App MCP Server...")
 
     # Run the MCP server
     app.run()

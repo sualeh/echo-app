@@ -28,7 +28,7 @@ def get_command_line_args() -> list:
     logger.debug("Command-line arguments requested: %s", args)
 
     if len(args) == 0:
-        return None
+        return []
 
     return [{"index": i+1, "value": arg} for i, arg in enumerate(args)]
 
@@ -46,7 +46,7 @@ def get_environment_variables() -> list:
     logger.debug("Environment variables: %d variables", len(filtered_vars))
 
     if not sorted_vars:
-        return None
+        return []
 
     return [{"name": key, "value": value} for key, value in sorted_vars]
 

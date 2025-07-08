@@ -62,8 +62,24 @@ def main() -> None:
     """Main entry point that runs the MCP server."""
 
     logger.info("Starting Echo App MCP Server")
-    logger.info("%s", get_command_line_args())
-    logger.info("%s", get_environment_variables())
+
+    # Log command-line arguments
+    logger.info("Command-line arguments:")
+    args = get_command_line_args()
+    if args:
+        for arg in args:
+            logger.info("  %d: %s", arg['index'], arg['value'])
+    else:
+        logger.info("  <none>")
+
+    # Log environment variables
+    logger.info("Environment variables:")
+    env_vars = get_environment_variables()
+    if env_vars:
+        for var in env_vars:
+            logger.info("  %s=%s", var['name'], var['value'])
+    else:
+        logger.info("  <none>")
 
     print("Starting Echo App MCP Server...")
 

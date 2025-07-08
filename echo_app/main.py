@@ -10,7 +10,7 @@ import sys
 import fastmcp
 
 # Create the MCP server
-app = fastmcp.FastMCP("Echo App MCP Server")
+echo_app = fastmcp.FastMCP("Echo App MCP Server")
 
 # Set up logging
 logging.basicConfig(
@@ -20,27 +20,21 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-@app.tool()
-def hello_world() -> str:
-    """A simple tool that returns 'Hello, world!'"""
-    return "Hello, world!"
-
-
-@app.tool()
-def get_command_line_args() -> dict:
+@echo_app.tool()
+def get_command_line_args() -> list:
     """Get command-line arguments that were passed to the server."""
     args = sys.argv[1:]  # Exclude the script name
 
     logger.debug("Command-line arguments requested: %s", args)
 
     if len(args) == 0:
-        return []
+        return None
 
     return [{"index": i+1, "value": arg} for i, arg in enumerate(args)]
 
 
-@app.tool()
-def get_environment_variables() -> dict:
+@echo_app.tool()
+def get_environment_variables() -> list:
     """Get environment variables with ECHO_ prefix."""
     env_vars = dict(os.environ)
     # Filter to only include variables with ECHO_ prefix
@@ -52,7 +46,7 @@ def get_environment_variables() -> dict:
     logger.debug("Environment variables: %d variables", len(filtered_vars))
 
     if not sorted_vars:
-        return []
+        return None
 
     return [{"name": key, "value": value} for key, value in sorted_vars]
 
@@ -63,7 +57,7 @@ def main() -> None:
     logger.info("Starting Echo App MCP Server")
 
     # Run the MCP server
-    app.run()
+    echo_app.run()
 
 
 if __name__ == "__main__":

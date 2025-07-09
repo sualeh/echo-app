@@ -1,0 +1,112 @@
+name: echo-app
+image: sualehfatehi/echo-app
+type: server
+meta:
+    category: database
+    tags:
+        - ai
+        - database
+about:
+  title: Echo App
+  description: >-
+    The Echo App MCP Server is a lightweight, Docker-based service that prints 
+    environmental variables.
+    Lorem ipsum dolor sit amet, consectetur neural net adipiscing elit. GPT-vel sapien 
+    sapien, promptus fermentum deep learning, ut varius large language model tellus. 
+    Integer euismod autoregressive justo, sed facilisis cognition urna. Transformer 
+    pellentesque quantum computing elit, sed porttitor algorithm massa tincidunt id. 
+    Suspendisse potenti. Nunc sem sapien, convallis AGI non, vehicula machine ethics erat. 
+    Nullam accumsan bias minim, id mattis reinforcement maximus.
+  icon: https://raw.githubusercontent.com/schemacrawler/SchemaCrawler/main/schemacrawler-website/src/site/resources/images/schemacrawler_logo.svg
+source:
+    project: https://github.com/sualeh/echo-app
+run:
+    volumes:
+        - "{{echo-app.volume.host_share}}:/share"
+config:
+    description: Configure Echo App and its connection to the database
+    secrets:
+        - name: echo-app.database_user
+          env: ECHO_DATABASE_USER
+          example: SA
+          description: --user Database user name
+        - name: echo-app.database_password
+          env: ECHO_DATABASE_PASSWORD
+          example: super_S3cret
+          description: --password Database user password
+    env:
+        - name: ECHO_JDBC_URL
+          example: 12.12.12.12
+          value: '{{echo-app.url_connection.jdbc_url}}'
+        - name: ECHO_SERVER
+          example: 12.12.12.12
+          value: '{{echo-app.server_connection.server}}'
+        - name: ECHO_HOST
+          example: 12.12.12.12
+          value: '{{echo-app.server_connection.host}}'
+        - name: ECHO_PORT
+          example: 9999
+          value: '{{echo-app.server_connection.port}}'
+        - name: ECHO_DATABASE
+          example: public
+          value: '{{echo-app.server_connection.database}}'
+        - name: ECHO_INFO_LEVEL
+          example: standard
+          value: '{{echo-app.general.info_level}}'
+        - name: ECHO_LOG_LEVEL
+          example: ALL
+          value: '{{echo-app.general.log_level}}'
+    parameters:
+        type: object
+        properties:
+          url_connection:
+            type: object
+            properties:
+              jdbc_url:
+                type: string
+                description: --url JDBC URL for database connection
+            required:
+              - jdbc_url
+          server_connection:
+            type: object
+            properties:
+              server:
+                type: string
+                description: --server SchemaCrawler database plugin
+              host:
+                type: string
+                description: --host Database host (optional)
+              port:
+                type: string
+                description: --port Database port (optional)
+              database:
+                type: string
+                description: --database Database to connect to (optional)
+            required:
+              - server
+          general:
+            type: object
+            properties:
+              info_level:
+                type: string
+                description: --info-level How much database metadata to retrieve
+                default: standard
+              log_level:
+                type: string
+                description: --log-level Logging level
+                default: INFO
+            required:
+              - info_level
+          volume:
+            type: object
+            properties:
+              host_share:
+                type: string
+                description: Host volume to map within the Docker container
+            required:
+              - host_share              
+        anyOf:
+          - required:
+              - url_connection
+          - required:
+              - server_connection

@@ -12,5 +12,14 @@ python -m echo_app.main [args...]
 
 ## Docker
 
+### Build Docker Image
+
 ```bash
-docker run sualehfatehi/echo-app
+docker build -t sualehfatehi/echo-app:latest .
+```
+
+### Start Docker Container in `stdio` Mode
+
+```bash
+docker run -it -d sualehfatehi/echo-app
+```

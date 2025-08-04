@@ -33,7 +33,8 @@ COPY README.md ./
 COPY echo_app/ ./echo_app/
 
 # Install dependencies and build the project using Poetry
-RUN pip install fastmcp>=0.1.0 \
+RUN pip install fastmcp>=2.0.0 \
+    && poetry install \
     && poetry build \
     && pip install dist/*.whl
 
